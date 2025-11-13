@@ -1,0 +1,10 @@
+.create-task {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.create-task h2 {
+  color: #2c3e50;
+  margin-bottom: 2rem;
+}
+
