@@ -29,7 +29,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete }) => {
   const handleDelete = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (onDelete && window.confirm('Вы уверены, что хотите удалить эту задачу?')) {
+    if (window.confirm('Вы уверены, что хотите удалить эту задачу?')) {
       onDelete(task.id);
     }
   };
@@ -51,7 +51,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete }) => {
               Срок: {new Date(task.dueDate).toLocaleDateString('ru-RU')}
             </span>
           )}
-          {task.assignee && <span className="task-assignee">Исполнитель: {task.assignee}</span>}
+          <span className="task-assignee">Исполнитель: {task.assignee || 'Не назначен'}</span>
         </div>
       </Link>
       {onDelete && (

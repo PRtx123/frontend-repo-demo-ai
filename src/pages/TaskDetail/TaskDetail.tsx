@@ -11,11 +11,11 @@ export const TaskDetail: React.FC = () => {
   const { getTaskById, updateTask, deleteTask, loading } = useTasks();
   const [isEditing, setIsEditing] = useState(false);
 
-  const task = id ? getTaskById(id) : undefined;
+  const task = getTaskById(id || '');
 
   const handleUpdate = async (data: UpdateTaskDto) => {
     if (id) {
-      await updateTask(id, data);
+      updateTask(id, data);
       setIsEditing(false);
     }
   };
@@ -30,6 +30,7 @@ export const TaskDetail: React.FC = () => {
   const handleStatusChange = async (newStatus: 'pending' | 'in_progress' | 'completed') => {
     if (id) {
       await updateTask(id, { status: newStatus });
+      window.location.reload();
     }
   };
 

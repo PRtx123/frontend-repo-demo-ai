@@ -23,14 +23,9 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const fetchTasks = async () => {
     setLoading(true);
     setError(null);
-    try {
-      const data = await taskApi.getAll();
-      setTasks(data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Ошибка загрузки задач');
-    } finally {
-      setLoading(false);
-    }
+    const data = await taskApi.getAll();
+    setTasks(data);
+    setLoading(false);
   };
 
   const createTask = async (data: CreateTaskDto) => {
@@ -38,7 +33,7 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setError(null);
     try {
       const newTask = await taskApi.create(data);
-      setTasks(prev => [...prev, newTask]);
+      setTasks([...tasks, newTask]);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка создания задачи');
     } finally {
@@ -82,7 +77,7 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   useEffect(() => {
     fetchTasks();
-  }, []);
+  }, [fetchTasks]);
 
   return (
     <TaskContext.Provider

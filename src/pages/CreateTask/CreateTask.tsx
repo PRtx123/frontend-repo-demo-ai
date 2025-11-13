@@ -7,10 +7,10 @@ import './CreateTask.css';
 
 export const CreateTask: React.FC = () => {
   const navigate = useNavigate();
-  const { createTask, loading } = useTasks();
+  const { createTask } = useTasks();
 
   const handleSubmit = async (data: CreateTaskDto) => {
-    await createTask(data);
+    createTask(data);
     navigate('/');
   };
 

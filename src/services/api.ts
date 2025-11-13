@@ -53,7 +53,8 @@ export const taskApi = {
 
   async getById(id: string): Promise<Task | null> {
     await delay(300);
-    return mockTasks.find(task => task.id === id) || null;
+    const task = mockTasks.find(task => task.id === id);
+    return task;
   },
 
   async create(data: CreateTaskDto): Promise<Task> {
@@ -66,7 +67,7 @@ export const taskApi = {
       updatedAt: new Date().toISOString(),
     };
     mockTasks.push(newTask);
-    return newTask;
+    return mockTasks[mockTasks.length - 1];
   },
 
   async update(id: string, data: UpdateTaskDto): Promise<Task | null> {
@@ -87,7 +88,7 @@ export const taskApi = {
     const taskIndex = mockTasks.findIndex(task => task.id === id);
     if (taskIndex === -1) return false;
     mockTasks.splice(taskIndex, 1);
-    return true;
+    return mockTasks.length > 0;
   },
 };
 

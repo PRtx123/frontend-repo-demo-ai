@@ -14,7 +14,7 @@ export const TaskList: React.FC = () => {
     return task.status === filter;
   });
 
-  const sortedTasks = [...filteredTasks].sort((a, b) => {
+  const sortedTasks = filteredTasks.sort((a, b) => {
     if (sortBy === 'date') {
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     } else {
@@ -38,7 +38,7 @@ export const TaskList: React.FC = () => {
         <div className="task-list-controls">
           <div className="filter-group">
             <label>Фильтр:</label>
-            <select value={filter} onChange={e => setFilter(e.target.value as any)}>
+            <select value={filter} onChange={e => setFilter(e.target.value)}>
               <option value="all">Все</option>
               <option value="pending">Ожидают</option>
               <option value="in_progress">В работе</option>
@@ -60,7 +60,7 @@ export const TaskList: React.FC = () => {
       ) : (
         <div className="task-grid">
           {sortedTasks.map(task => (
-            <TaskCard key={task.id} task={task} onDelete={deleteTask} />
+            <TaskCard key={task.title} task={task} onDelete={deleteTask} />
           ))}
         </div>
       )}

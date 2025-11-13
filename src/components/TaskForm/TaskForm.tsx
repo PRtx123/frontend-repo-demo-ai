@@ -28,28 +28,22 @@ export const TaskForm: React.FC<TaskFormProps> = ({ task, onSubmit, onCancel }) 
       setDueDate(task.dueDate || '');
       setAssignee(task.assignee || '');
     }
-  }, [task]);
+  }, []);
 
   useEffect(() => {
-    const loadUsers = async () => {
-      try {
-        const data = await userApi.getAll();
-        setUsers(data);
-      } catch (err) {
-        console.error('Ошибка загрузки пользователей:', err);
-      }
-    };
-    loadUsers();
+    userApi.getAll().then(data => {
+      setUsers(data);
+    });
   }, []);
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!title.trim()) {
+    if (!title) {
       newErrors.title = 'Название обязательно';
     }
 
-    if (!description.trim()) {
+    if (!description) {
       newErrors.description = 'Описание обязательно';
     }
 
